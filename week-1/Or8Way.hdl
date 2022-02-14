@@ -1,0 +1,21 @@
+/**
+ * 8-way Or: 
+ * out = (in[0] or in[1] or ... or in[7])
+ */
+
+CHIP Or8Way {
+    IN in[8];
+    OUT out;
+
+    PARTS:
+    Or(a=in[0], b=in[1], out=Or1l1);
+    Or(a=in[2], b=in[3], out=Or2l1);
+    Or(a=in[4], b=in[5], out=Or3l1);
+    Or(a=in[6], b=in[7], out=Or4l1);
+
+    Or(a=Or1l1, b=Or2l1, out=Or1l2);
+    Or(a=Or3l1, b=Or4l1, out=Or2l2);
+
+    Or(a=Or1l2, b=Or2l2, out=out);
+}
+

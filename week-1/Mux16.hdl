@@ -1,0 +1,32 @@
+/**
+ * 16-bit multiplexor: 
+ * for i = 0..15 out[i] = a[i] if sel == 0 
+ *                        b[i] if sel == 1
+ */
+
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    Not16(in[0]=sel,
+          in[1]=sel,
+          in[2]=sel,
+          in[3]=sel,
+          in[4]=sel,
+          in[5]=sel,
+          in[6]=sel,
+          in[7]=sel,
+          in[8]=sel,
+          in[9]=sel,
+          in[10]=sel,
+          in[11]=sel,
+          in[12]=sel,
+          in[13]=sel,
+          in[14]=sel,
+   	  in[15]=sel, out=Notsel);
+    Not16(in=Notsel, out=NotNotsel);
+    And16(a=a, b=Notsel, out=And1);
+    And16(a=b, b=NotNotsel, out=And2);
+    Or16(a=And1, b=And2, out=out);
+}
